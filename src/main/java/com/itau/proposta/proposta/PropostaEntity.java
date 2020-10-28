@@ -1,11 +1,9 @@
 package com.itau.proposta.proposta;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -14,7 +12,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.http.HttpStatus;
 
+import com.itau.proposta.exception.ApiErroException;
 import com.itau.proposta.validator.CpfCnpj;
 
 @Entity
@@ -43,6 +43,9 @@ public class PropostaEntity {
 	@NotNull
 	@Positive
 	private BigDecimal salario;
+	
+	@NotNull
+	private StatusAvaliacaoProposta statusAvaliacao;
 
 	public PropostaEntity() {
 		super();
@@ -55,6 +58,7 @@ public class PropostaEntity {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.salario = salario;
+		this.statusAvaliacao = StatusAvaliacaoProposta.NAO_ELEGIVEL;
 	}
 
 	public String getId() {
@@ -79,6 +83,17 @@ public class PropostaEntity {
 
 	public BigDecimal getSalario() {
 		return salario;
+	}
+
+	public StatusAvaliacaoProposta getStatusAvaliacao() {
+		return statusAvaliacao;
+	}
+
+	public void setStatusAvaliacao(StatusAvaliacaoProposta statusAvaliacao) {
+		if(this.statusAvaliacao.equals(StatusAvaliacaoProposta.ELEGIVEL)) {
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Proposta já se encontra como elegível, não é possível voltar o status.");
+		}
+		this.statusAvaliacao = statusAvaliacao;
 	}
 
 }

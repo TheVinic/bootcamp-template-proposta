@@ -1,11 +1,9 @@
 package com.itau.proposta.proposta;
 
 import java.net.URI;
-import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
@@ -21,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class PropostaController {
 	
 	@PersistenceContext
@@ -41,6 +38,7 @@ public class PropostaController {
 		
 	}
 	
+	@Deprecated
 	@GetMapping("/propostas/{id_proposta}")
 	public ResponseEntity<?> ConsultaProposta(@PathVariable("id_proposta") @NotBlank String id_compra){
 		
