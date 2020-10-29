@@ -114,4 +114,8 @@ public class PropostaEntity {
 		this.cartao = new Cartao(this, cartao.getId());
 	}
 
+	public PropostaResponse toResponse() {
+		return new PropostaResponse(id, statusAvaliacao);
+	}
+
 }

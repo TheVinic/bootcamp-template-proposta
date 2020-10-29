@@ -1,4 +1,4 @@
-package com.itau.proposta.proposta;
+package com.itau.proposta.controller;
 
 import java.net.URI;
 
@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.itau.proposta.proposta.PropostaEntity;
+import com.itau.proposta.proposta.PropostaRequest;
+import com.itau.proposta.proposta.PropostaResponse;
+import com.itau.proposta.proposta.PropostaService;
 
 @RestController
 @RequestMapping("/api")
@@ -45,7 +50,8 @@ public class PropostaController {
 		if(proposta == null) {
 			return ResponseEntity.notFound().build();
 		}else {
-			return ResponseEntity.ok(proposta);
+			PropostaResponse propostaResponse = proposta.toResponse();
+			return ResponseEntity.ok(propostaResponse);
 		}
 		
 	}

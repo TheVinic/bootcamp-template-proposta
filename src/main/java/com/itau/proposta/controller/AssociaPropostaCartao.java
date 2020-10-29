@@ -1,4 +1,4 @@
-package com.itau.proposta.cartao;
+package com.itau.proposta.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itau.proposta.cartao.CartoesResponse;
+import com.itau.proposta.cartao.IntegracoesCartoes;
 import com.itau.proposta.geral.ExecutorTransacao;
 import com.itau.proposta.proposta.PropostaEntity;
 import com.itau.proposta.proposta.PropostaRepository;
