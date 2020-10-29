@@ -38,7 +38,6 @@ public class PropostaController {
 		
 	}
 	
-	@Deprecated
 	@GetMapping("/propostas/{id_proposta}")
 	public ResponseEntity<?> ConsultaProposta(@PathVariable("id_proposta") @NotBlank String id_compra){
 		

@@ -3,7 +3,7 @@ package com.itau.proposta.dadosSolicitante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itau.proposta.geral.Integracoes;
+import com.itau.proposta.geral.IntegracoesSolicitacaoFinanceira;
 import com.itau.proposta.proposta.PropostaEntity;
 import com.itau.proposta.proposta.StatusAvaliacaoProposta;
 
@@ -11,7 +11,7 @@ import com.itau.proposta.proposta.StatusAvaliacaoProposta;
 public class ConsultaDadosSolicitante {
 
 	@Autowired
-	private Integracoes integracoes;
+	private IntegracoesSolicitacaoFinanceira integracoes;
 
 	public StatusAvaliacaoProposta consulta(PropostaEntity proposta) {
 

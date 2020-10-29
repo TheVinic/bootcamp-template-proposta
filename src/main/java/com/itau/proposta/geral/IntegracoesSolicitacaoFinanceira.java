@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.itau.proposta.dadosSolicitante.DadosFinanceirosRequest;
 import com.itau.proposta.dadosSolicitante.DadosFinanceirosResponse;
 
-@FeignClient(url = "${enderecos-externos.base-url}", name = "integracoes")
-public interface Integracoes {
-
+@FeignClient(url = "${endereco-solicitacao-financeira.base-url}", name = "solicitacao")
+public interface IntegracoesSolicitacaoFinanceira {
+	
 	@PostMapping("/api/solicitacao")
 	public DadosFinanceirosResponse avalia(DadosFinanceirosRequest request);
 	

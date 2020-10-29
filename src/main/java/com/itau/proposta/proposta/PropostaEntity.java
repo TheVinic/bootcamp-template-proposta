@@ -2,9 +2,11 @@ package com.itau.proposta.proposta;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +16,8 @@ import javax.validation.constraints.Positive;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.http.HttpStatus;
 
+import com.itau.proposta.cartao.Cartao;
+import com.itau.proposta.cartao.CartoesResponse;
 import com.itau.proposta.exception.ApiErroException;
 import com.itau.proposta.validator.CpfCnpj;
 
@@ -46,6 +50,9 @@ public class PropostaEntity {
 	
 	@NotNull
 	private StatusAvaliacaoProposta statusAvaliacao;
+	
+	@OneToOne(mappedBy = "proposta",cascade = CascadeType.MERGE)	
+	private Cartao cartao;
 
 	public PropostaEntity() {
 		super();
@@ -94,6 +101,17 @@ public class PropostaEntity {
 			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Proposta já se encontra como elegível, não é possível voltar o status.");
 		}
 		this.statusAvaliacao = statusAvaliacao;
+	}
+
+	public void associaCartao(CartoesResponse cartao) {
+		if(this.statusAvaliacao == StatusAvaliacaoProposta.NAO_ELEGIVEL) {
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Proposta com status não elegivel.");
+		}
+		if(this.cartao != null) {
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Proposta já possui cartão associado.");
+		}
+		
+		this.cartao = new Cartao(this, cartao.getId());
 	}
 
 }
