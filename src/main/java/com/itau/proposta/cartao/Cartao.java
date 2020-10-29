@@ -1,5 +1,9 @@
 package com.itau.proposta.cartao;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import com.itau.proposta.biometria.Biometria;
 import com.itau.proposta.proposta.PropostaEntity;
 
 @Entity
@@ -24,6 +29,9 @@ public class Cartao {
 	
 	@NotBlank
 	private String numero;
+	
+	@ElementCollection
+	private Set<Biometria> biometrias = new HashSet<>();
 
 	@Deprecated
 	public Cartao() {}
@@ -44,6 +52,12 @@ public class Cartao {
 
 	public String getNumero() {
 		return numero;
+	}
+
+	public void adicionaBiometria(String digital) {
+		
+		this.biometrias.add(new Biometria(digital));
+		
 	}
 	
 }

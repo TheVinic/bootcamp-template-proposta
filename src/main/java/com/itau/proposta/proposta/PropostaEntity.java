@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -49,6 +51,7 @@ public class PropostaEntity {
 	private BigDecimal salario;
 	
 	@NotNull
+	@Enumerated(EnumType.STRING)
 	private StatusAvaliacaoProposta statusAvaliacao;
 	
 	@OneToOne(mappedBy = "proposta",cascade = CascadeType.MERGE)	

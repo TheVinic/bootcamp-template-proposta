@@ -25,7 +25,7 @@ public class PropostaService {
 		
 		StatusAvaliacaoProposta avaliacao = consultaDadosFinanceiros.consulta(proposta);
 		proposta.setStatusAvaliacao(avaliacao);
-		executorTransacao.atualizaEComita(proposta);		
+		executorTransacao.atualizaEComita(proposta);
 		
 		return proposta.getId();
 		
