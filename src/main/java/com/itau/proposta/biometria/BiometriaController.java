@@ -27,7 +27,7 @@ public class BiometriaController {
 	@PersistenceContext
 	private EntityManager manager;
 	
-	@PostMapping("/cartoes/{id}/biometria")
+	@PostMapping("/cartoes/{id}/biometria") 
 	public ResponseEntity<?> NovaBiometria(@PathVariable("id") String id,
 			@RequestBody @Valid BiometriaRequest request, UriComponentsBuilder builder) {
 		
