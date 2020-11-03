@@ -1,12 +1,15 @@
 package com.itau.proposta.cartao;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
@@ -32,6 +35,8 @@ public class Cartao {
 	
 	@ElementCollection
 	private Set<Biometria> biometrias = new HashSet<>();
+	@OneToMany(mappedBy = "cartao")
+	private List<StatusUso> statusUsos = new ArrayList<>();
 
 	@Deprecated
 	public Cartao() {}
@@ -58,6 +63,10 @@ public class Cartao {
 		
 		this.biometrias.add(new Biometria(digital));
 		
+	}
+
+	public void bloqueia(String userAgent, String ipRemoto) {
+		this.statusUsos.add(new StatusUso(PossiveisStatusUso.BLOQUEADO, this, userAgent, ipRemoto));
 	}
 	
 }
