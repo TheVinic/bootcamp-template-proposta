@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.itau.proposta.cartao.Cartao;
+import com.itau.proposta.cartao.IntegracoesCartoes;
 import com.itau.proposta.exception.ApiErroException;
 
 @RestController
@@ -27,6 +28,8 @@ public class AvisoViagemController {
 
 	@Autowired
 	private EntityManager manager;
+	@Autowired
+	private IntegracoesCartoes integracoes;
 
 	@PostMapping("/cartoes/{id}/aviso_viagem")
 	public ResponseEntity<?> NovoAvisoViagem(@PathVariable("id") String id, @RequestHeader HttpHeaders headers,
@@ -37,11 +40,20 @@ public class AvisoViagemController {
 			throw new ApiErroException(HttpStatus.NOT_FOUND, "Não encontrado.");
 		}
 
+		InformaAvisoViagemRequest informaAvisoViagemRequest = new InformaAvisoViagemRequest(request.getDestinoViagem(),
+				request.getDataTerminoViagem());
+		InformaAvisoViagemResponse informaAvisoViagemResponse = integracoes.avisoViagem(id, informaAvisoViagemRequest);
+
+		if(informaAvisoViagemResponse.getResultado() != PossiveisRetornosCartoes.CRIADO) {
+			throw new ApiErroException(HttpStatus.INTERNAL_SERVER_ERROR, "Não foi possível enviar o Aviso Viagem.");
+		}
+		
 		AvisoViagem avisoViagem = new AvisoViagem(cartao, request.getDestinoViagem(), request.getDataTerminoViagem(),
 				headers.get(HttpHeaders.USER_AGENT).get(0), httpRequest.getRemoteAddr());
 		manager.persist(avisoViagem);
 
-		URI enderecoConsulta = builder.path("/cartoes/cartoes/{id}/aviso_viagem/{idRecuperaSenha}").build(id, avisoViagem.getId());
+		URI enderecoConsulta = builder.path("/cartoes/cartoes/{id}/aviso_viagem/{idRecuperaSenha}").build(id,
+				avisoViagem.getId());
 		return ResponseEntity.created(enderecoConsulta).build();
 
 	}
