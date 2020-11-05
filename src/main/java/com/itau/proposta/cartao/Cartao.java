@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 
 import com.itau.proposta.biometria.Biometria;
 import com.itau.proposta.carteira.CarteiraPaypal;
+import com.itau.proposta.carteira.CarteiraSamsung;
 import com.itau.proposta.exception.ApiErroException;
 import com.itau.proposta.proposta.PropostaEntity;
 
@@ -42,6 +43,8 @@ public class Cartao {
 	private List<StatusUso> statusUsos = new ArrayList<>();
 	@OneToOne
 	private CarteiraPaypal carteiraPaypal;
+	@OneToOne
+	private CarteiraSamsung carteiraSamsung;
 
 	@Deprecated
 	public Cartao() {}
@@ -80,9 +83,14 @@ public class Cartao {
 		}
 	}
 
-	public CarteiraPaypal associaPaypal(String email) {
+	public Cartao associaPaypal(String email) {
 		this.carteiraPaypal = new CarteiraPaypal(this, email);
-		return this.carteiraPaypal;
+		return this;
+	}
+
+	public Cartao associaSamguns(String email) {
+		this.carteiraSamsung = new CarteiraSamsung(this, email);
+		return this;
 	}
 
 	public Set<Biometria> getBiometrias() {

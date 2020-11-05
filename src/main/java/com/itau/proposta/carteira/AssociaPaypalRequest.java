@@ -3,7 +3,9 @@ package com.itau.proposta.carteira;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class AssociaPaypalRequest {
+import com.itau.proposta.controller.AssociaCarterteiraRequest;
+
+public class AssociaPaypalRequest implements AssociaCarterteiraRequest{
 
 	@NotBlank
 	@Email
