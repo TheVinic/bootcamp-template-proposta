@@ -17,6 +17,7 @@ import javax.validation.constraints.Positive;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.itau.proposta.cartao.Cartao;
 import com.itau.proposta.cartao.CartoesResponse;
@@ -33,7 +34,6 @@ public class PropostaEntity {
 	private String id;
 
 	@NotBlank
-	@CpfCnpj
 	private String cpfCnpj;
 
 	@Email
@@ -63,7 +63,7 @@ public class PropostaEntity {
 
 	public PropostaEntity(@NotBlank String cpfCnpj, @Email @NotBlank String email, @NotBlank String nome,
 			@NotBlank String endereco, @NotNull @Positive BigDecimal salario) {
-		this.cpfCnpj = cpfCnpj;
+		this.cpfCnpj = new BCryptPasswordEncoder().encode(cpfCnpj);
 		this.email = email;
 		this.nome = nome;
 		this.endereco = endereco;
