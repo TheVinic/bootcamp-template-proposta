@@ -1,4 +1,4 @@
-package com.itau.proposta.bloqueio;
+package com.itau.proposta.controller;
 
 import java.net.URI;
 
@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.itau.proposta.bloqueio.CartoesBloqueioResponse;
+import com.itau.proposta.bloqueio.StatusRetornoBloqueioCartao;
 import com.itau.proposta.cartao.Cartao;
 import com.itau.proposta.cartao.IntegracoesCartoes;
 import com.itau.proposta.exception.ApiErroException;
@@ -39,13 +41,13 @@ public class BloqueioController {
 			HttpServletRequest httpRequest, UriComponentsBuilder builder) {
 
 		validaRequest(headers, httpRequest);
+
+		Cartao cartao = manager.find(Cartao.class, id);
 		
-		CartoesBloqueioResponse responseCartoes = integracoes.bloqueiaCartao(id);
+		CartoesBloqueioResponse responseCartoes = integracoes.bloqueiaCartao(cartao.getNumero());
 		if(responseCartoes.getResultado()!=StatusRetornoBloqueioCartao.BLOQUEADO) {
 			throw new ApiErroException(HttpStatus.PRECONDITION_FAILED, "Falha ao bloquear cartão.");
 		}
-		
-		Cartao cartao = manager.find(Cartao.class, id);
 		
 		cartao.bloqueia(headers.get(HttpHeaders.USER_AGENT).get(0), httpRequest.getRemoteAddr());
 		executorTransacao.atualizaEComita(cartao);

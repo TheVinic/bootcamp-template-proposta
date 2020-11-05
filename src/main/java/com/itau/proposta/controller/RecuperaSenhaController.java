@@ -1,4 +1,4 @@
-package com.itau.proposta.recuperaSenha;
+package com.itau.proposta.controller;
 
 import java.net.URI;
 
@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.itau.proposta.cartao.Cartao;
 import com.itau.proposta.exception.ApiErroException;
+import com.itau.proposta.recuperaSenha.RecuperaSenha;
 
 @RestController
 @RequestMapping("/api")

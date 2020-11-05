@@ -16,6 +16,12 @@ public class ApiErroException extends RuntimeException {
         this.reason = reason;
     }
 
+	public ApiErroException(int status, String reason) {
+		super(reason);
+        this.httpStatus = HttpStatus.valueOf(status);
+        this.reason = reason;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

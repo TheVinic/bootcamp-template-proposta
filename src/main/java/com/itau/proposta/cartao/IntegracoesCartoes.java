@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.itau.proposta.avisoViagem.InformaAvisoViagemRequest;
 import com.itau.proposta.avisoViagem.InformaAvisoViagemResponse;
 import com.itau.proposta.bloqueio.CartoesBloqueioResponse;
+import com.itau.proposta.carteira.AssociaCarteiraRequest;
+import com.itau.proposta.carteira.AssociaCarteiraResponse;
 
 @FeignClient(url = "${endereco-cartoes.base-url}", name = "cartao")
 public interface IntegracoesCartoes {
@@ -23,5 +25,9 @@ public interface IntegracoesCartoes {
 	@PostMapping("/api/cartoes/{id}/avisos")
 	public InformaAvisoViagemResponse avisoViagem(@PathVariable(value = "id") String idCartao,
 			@RequestBody InformaAvisoViagemRequest informaAvisoViagemRequest);
+
+	@PostMapping("/api/cartoes/{id}/carteiras")
+	public AssociaCarteiraResponse associaPaypal(@PathVariable(value = "id") String idCartao,
+			@RequestBody AssociaCarteiraRequest solicitacao);
 
 }

@@ -15,8 +15,11 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.http.HttpStatus;
 
 import com.itau.proposta.biometria.Biometria;
+import com.itau.proposta.carteira.CarteiraPaypal;
+import com.itau.proposta.exception.ApiErroException;
 import com.itau.proposta.proposta.PropostaEntity;
 
 @Entity
@@ -37,6 +40,8 @@ public class Cartao {
 	private Set<Biometria> biometrias = new HashSet<>();
 	@OneToMany(mappedBy = "cartao")
 	private List<StatusUso> statusUsos = new ArrayList<>();
+	@OneToOne
+	private CarteiraPaypal carteiraPaypal;
 
 	@Deprecated
 	public Cartao() {}
@@ -67,6 +72,29 @@ public class Cartao {
 
 	public void bloqueia(String userAgent, String ipRemoto) {
 		this.statusUsos.add(new StatusUso(PossiveisStatusUso.BLOQUEADO, this, userAgent, ipRemoto));
+	}
+
+	public void validaCarteiraPaypal() {
+		if(this.carteiraPaypal != null) {
+			throw new ApiErroException(HttpStatus.UNPROCESSABLE_ENTITY, "Cartão já possui carteira associada.");
+		}
+	}
+
+	public CarteiraPaypal associaPaypal(String email) {
+		this.carteiraPaypal = new CarteiraPaypal(this, email);
+		return this.carteiraPaypal;
+	}
+
+	public Set<Biometria> getBiometrias() {
+		return biometrias;
+	}
+
+	public List<StatusUso> getStatusUsos() {
+		return statusUsos;
+	}
+
+	public CarteiraPaypal getCarteiraPaypal() {
+		return carteiraPaypal;
 	}
 	
 }

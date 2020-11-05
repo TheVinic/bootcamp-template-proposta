@@ -1,4 +1,4 @@
-package com.itau.proposta.avisoViagem;
+package com.itau.proposta.controller;
 
 import java.net.URI;
 import javax.persistence.EntityManager;
@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.itau.proposta.avisoViagem.AvisoViagem;
+import com.itau.proposta.avisoViagem.AvisoViagemRequest;
+import com.itau.proposta.avisoViagem.InformaAvisoViagemRequest;
+import com.itau.proposta.avisoViagem.InformaAvisoViagemResponse;
+import com.itau.proposta.avisoViagem.PossiveisRetornosCartoes;
 import com.itau.proposta.cartao.Cartao;
 import com.itau.proposta.cartao.IntegracoesCartoes;
 import com.itau.proposta.exception.ApiErroException;
@@ -42,7 +47,7 @@ public class AvisoViagemController {
 
 		InformaAvisoViagemRequest informaAvisoViagemRequest = new InformaAvisoViagemRequest(request.getDestinoViagem(),
 				request.getDataTerminoViagem());
-		InformaAvisoViagemResponse informaAvisoViagemResponse = integracoes.avisoViagem(id, informaAvisoViagemRequest);
+		InformaAvisoViagemResponse informaAvisoViagemResponse = integracoes.avisoViagem(cartao.getNumero(), informaAvisoViagemRequest);
 
 		if(informaAvisoViagemResponse.getResultado() != PossiveisRetornosCartoes.CRIADO) {
 			throw new ApiErroException(HttpStatus.INTERNAL_SERVER_ERROR, "Não foi possível enviar o Aviso Viagem.");

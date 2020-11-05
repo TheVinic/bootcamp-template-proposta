@@ -1,4 +1,4 @@
-package com.itau.proposta.biometria;
+package com.itau.proposta.controller;
 
 import java.net.URI;
 
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.itau.proposta.biometria.BiometriaRequest;
 import com.itau.proposta.cartao.Cartao;
 import com.itau.proposta.exception.ApiErroException;
 import com.itau.proposta.geral.ExecutorTransacao;
