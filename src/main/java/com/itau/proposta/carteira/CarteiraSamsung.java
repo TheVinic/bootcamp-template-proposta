@@ -1,5 +1,6 @@
 package com.itau.proposta.carteira;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.itau.proposta.cartao.Cartao;
 
+@Entity
 public class CarteiraSamsung {
 
 	@Id
