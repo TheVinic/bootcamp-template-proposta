@@ -1,10 +1,9 @@
-package com.itau.proposta.controller;
+package com.itau.proposta.carteira;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import com.itau.proposta.carteira.AssociaCarteiraRequest;
-import com.itau.proposta.carteira.CarteirasDisponiveis;
+import com.itau.proposta.controller.AssociaCarterteiraRequest;
 
 public class AssociaSamsungRequest implements AssociaCarterteiraRequest{
 

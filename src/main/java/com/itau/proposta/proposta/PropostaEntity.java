@@ -22,7 +22,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.itau.proposta.cartao.Cartao;
 import com.itau.proposta.cartao.CartoesResponse;
 import com.itau.proposta.exception.ApiErroException;
-import com.itau.proposta.validator.CpfCnpj;
 
 @Entity
 @Table(name = "proposta")

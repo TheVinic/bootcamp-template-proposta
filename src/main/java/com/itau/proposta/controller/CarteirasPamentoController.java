@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.itau.proposta.carteira.AssociaPaypalRequest;
+import com.itau.proposta.carteira.AssociaSamsungRequest;
 import com.itau.proposta.carteira.CarteirasDisponiveis;
 
 @RestController
